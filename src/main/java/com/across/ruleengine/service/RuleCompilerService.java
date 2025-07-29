@@ -14,12 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Compiles (and caches) one KieContainer per rule-set.
- *   • Prepend the declare block if it exists.
- *   • Replace ${entity} tokens so rules stay generic.
- *   • Works even if declare block is "" (pure Map facts).
- */
 @Service
 @RequiredArgsConstructor
 public class RuleCompilerService {
