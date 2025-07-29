@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/across?useSSL=false&allowPublicKeyRetrieval=true
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+  main:
+    allow-circular-references: true
+
+  devtools:
+    restart:
+      enabled: false
