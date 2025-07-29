@@ -23,11 +23,12 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class RuleCompilerService {
-
     private final RuleRepository  ruleRepo;
+
     private final SchemaRepository schemaRepo;
 
     private final KieServices ks = KieServices.Factory.get();
+
     private final Map<String, KieContainer> cache = new HashMap<>();
 
     public KieContainer compile(String ruleSetId) {
@@ -35,7 +36,7 @@ public class RuleCompilerService {
         // return cached container if we already built this ruleset
         if (cache.containsKey(ruleSetId)) return cache.get(ruleSetId);
 
-        // fetch rules from DB --------------------------------------------------
+        // fetch rules from DB
         List<Rule> rules = ruleRepo.findByRuleSetId(ruleSetId);
         if (rules.isEmpty())
             throw new IllegalStateException("No rules in set " + ruleSetId);
@@ -45,7 +46,7 @@ public class RuleCompilerService {
                 .map(Schema::getDeclareBlock)
                 .orElse("");
 
-        // decide which type the rule should pattern-match ----------------------
+        // decide which type the rule should pattern-match
         boolean mapMode    = declare.isBlank();
         String  patternType = mapMode ? "java.util.Map" : entity;
 
