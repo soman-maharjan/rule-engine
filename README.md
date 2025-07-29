@@ -17,10 +17,6 @@ The engine converts each incoming JSON record into the generated `declare` POJO 
 * **Stateless Evaluation** &nbsp;Each request gets its own `StatelessKieSession`; no side-effects, fully thread-safe.
 * **Accumulate & Windows** &nbsp;Supports `count`, `sum`, sliding-time windows, and other Drools CEP features.
 * **Loop-safe by default** &nbsp;Rules are stored with `no-loop true` so a single `modify` won’t cause an infinite refire.
-
----
-
-
 * **RuleCompilerService** builds one `KieContainer` per `ruleSetId`, caching it for fast re-use.
 * **RuleEngineService** hydrates JSON → POJO (if a schema exists), fires the stateless session, then converts POJO → JSON for the response.
 
