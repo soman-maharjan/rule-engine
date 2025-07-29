@@ -12,5 +12,5 @@ public class RuleDTO {
 
     private String drl;
 
-    private Map<String, String> params;
+    private Map<String, Object> params;
 }

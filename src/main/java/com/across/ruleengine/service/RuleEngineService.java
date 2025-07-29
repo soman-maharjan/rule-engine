@@ -12,6 +12,7 @@ import org.kie.api.runtime.StatelessKieSession;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,14 +28,19 @@ public class RuleEngineService {
 
     public List<Object> evaluate(String ruleSetId, List<Object> facts) {
         KieContainer kc = compiler.compile(ruleSetId);
-        KieBase      kb = kc.getKieBase();
+        KieBase kb = kc.getKieBase();
 
-        String entityName = ruleRepository.findByRuleSetId(ruleSetId)
+        Rule rule = ruleRepository.findByRuleSetId(ruleSetId)
                 .stream()
                 .findFirst()
-                .map(Rule::getEntityName)
                 .orElseThrow(() ->
                         new IllegalStateException("No rule metadata"));
+        String entityName = rule.getEntityName();
+
+        Map<String, Object> params = rule.getParams();
+        if (params == null) {
+            params = new HashMap<>();
+        }
 
         FactType factType = kb.getKiePackages().stream()
                 .flatMap(pkg -> pkg.getFactTypes().stream())
@@ -69,6 +75,8 @@ public class RuleEngineService {
         }
 
         StatelessKieSession ss = kb.newStatelessKieSession();
+        ss.setGlobal("params", params);
+
         ss.execute(KieServices.Factory.get()
                 .getCommands().newInsertElements(typedFacts));
 

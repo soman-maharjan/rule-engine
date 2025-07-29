@@ -3,7 +3,6 @@ package com.across.ruleengine.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
 
 import java.util.Map;
@@ -31,5 +30,5 @@ public class Rule {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    private Map<String, String> params = Map.of();
+    private Map<String, Object> params = Map.of();
 }
