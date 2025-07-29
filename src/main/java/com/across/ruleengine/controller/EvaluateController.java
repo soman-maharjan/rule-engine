@@ -10,7 +10,6 @@ import java.util.List;
 @RestController @RequestMapping("/evaluate")
 @RequiredArgsConstructor
 public class EvaluateController {
-
     private final RuleEngineService engine;
 
     @PostMapping("/{ruleSetId}")

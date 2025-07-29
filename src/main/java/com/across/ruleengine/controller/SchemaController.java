@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController @RequestMapping("/schemas")
 @RequiredArgsConstructor
 public class SchemaController {
-
     private final DynamicTypeService types;
+
     private final RuleCompilerService compiler;
 
     @PostMapping
